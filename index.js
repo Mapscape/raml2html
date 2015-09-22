@@ -1,6 +1,8 @@
 var raml2obj = require('raml2obj');
 var pjson = require('./package.json');
 var Q = require('q');
+var path = require('path');
+var ramlJsonSchemaExpander = require('raml-jsonschema-expander');
 
 /**
  * Render the source RAML object using the config's processOutput function
@@ -22,6 +24,7 @@ function render(source, config) {
     ramlObj.config = config;
 
     if (config.processRamlObj) {
+      ramlObj = ramlJsonSchemaExpander.expandJsonSchemas(ramlObj);
       return config.processRamlObj(ramlObj).then(function(html) {
         if (config.postProcessHtml) {
           return config.postProcessHtml(html);
