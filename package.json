@@ -17,7 +17,7 @@
     "nunjucks-markdown": "1.0.x",
     "q": "1.4.x",
     "raml2obj": "2.2.x",
-    "raml-jsonschema-expander": "ms-sfm/raml-jsonschema-expander"
+    "raml-jsonschema-expander": "mapscape/raml-jsonschema-expander"
   },
   "devDependencies": {
     "eslint": "1.2.x",
