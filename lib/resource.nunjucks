@@ -31,6 +31,9 @@
             <div onclick="window.location.href = '#{{ resource.uniqueId }}_{{ method.method }}'" class="list-group-item">
               <span class="badge badge_{{ method.method }}">{{ method.method }}{% if method.securedBy.length %} <span class="glyphicon glyphicon-lock" title="Authentication required"></span>{% endif %}</span>
               <div class="method_description">
+                {% if method.displayName %}
+                    <h4>{{ method.displayName }}</h4>
+                {% endif %}
                 {% markdown %}{{ method.description}}{% endmarkdown %}
               </div>
               <div class="clearfix"></div>
@@ -50,6 +53,9 @@
                 <span class="badge badge_{{ method.method }}">{{ method.method }}{% if method.securedBy.length %} <span class="glyphicon glyphicon-lock" title="Authentication required"></span>{% endif %}</span>
                 <span class="parent">{{ resource.parentUrl }}</span>{{ resource.relativeUri }}
               </h4>
+              {% if method.displayName %}
+                <h4>{{ method.displayName }}</h4>
+              {% endif %}
             </div>
 
             <div class="modal-body">
