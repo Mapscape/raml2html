@@ -68,10 +68,13 @@
               {% if method.securedBy.length %}
                 {% for securedBy in method.securedBy %}
                   <div class="alert alert-warning">
-                    <span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by {{ securedBy }}
+                    <span class="glyphicon glyphicon-lock" title="Authentication required"></span>
                     {% set securityScheme = securitySchemeWithName(securedBy) %}
-                    {% if securityScheme.description %}
-                      {% markdown %}{{ securityScheme.description }}{% endmarkdown %}
+                    Secured by
+                    {% if securityScheme.displayName %}
+                        {{ securityScheme.displayName }} ({{ securedBy }})
+                    {% else %}
+                        {{ securedBy }}
                     {% endif %}
                   </div>
                 {% endfor %}
@@ -92,9 +95,11 @@
                 {% endif %}
 
                 {% if method.securedBy.length %}
+                  {% for securedBy in method.securedBy %}
                   <li>
-                    <a href="#{{ resource.uniqueId }}_{{ method.method }}_securedby" data-toggle="tab">Security</a>
+                    <a href="#{{ resource.uniqueId }}_{{ method.method }}_securedby_{{ securedBy }}" data-toggle="tab">Security ({{ securedBy }})</a>
                   </li>
+                  {% endfor %}
                 {% endif %}
               </ul>
 
@@ -192,9 +197,13 @@
                 {% endif %}
 
                 {% if method.securedBy.length %}
-                  <div class="tab-pane" id="{{ resource.uniqueId }}_{{ method.method }}_securedby">
+                  {% for securedBy in method.securedBy %}
+                  <div class="tab-pane" id="{{ resource.uniqueId }}_{{ method.method }}_securedby_{{ securedBy }}">
+                    Secured by {{ securedBy }}
                     {% set securityScheme = securitySchemeWithName(securedBy) %}
-                    Secured by {{ method.securedBy }}
+                    {% if securityScheme.description %}
+                      {% markdown %}{{ securityScheme.description }}{% endmarkdown %}
+                    {% endif %}
 
                     {% if securityScheme.describedBy.headers %}
                       <h3>Headers</h3>
@@ -220,6 +229,7 @@
                     {% endfor %}
 
                   </div>
+                  {% endfor %}
                 {% endif %}
               </div>
             </div>

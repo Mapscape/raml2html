@@ -71,7 +71,11 @@ function getDefaultConfig(mainTemplate, templatesPath) {
 
       // Add extra function for finding a security scheme by name
       ramlObj.securitySchemeWithName = function(name) {
-        return ramlObj.securitySchemes[0][name];
+        for (var i=0; i < ramlObj.securitySchemes.length; i++) {
+          if (ramlObj.securitySchemes[i][name]) {
+            return ramlObj.securitySchemes[i][name];
+          }
+        }
       };
 
       // Render the main template using the raml object and fix the double quotes
