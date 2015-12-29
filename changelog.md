@@ -1,3 +1,9 @@
+2.1.2 - November 13, 2015
+- Better fix for #152 (#157)
+
+2.1.1 - November 5, 2015
+- Fix JS error in Chrome when opening the html file from the local file system and then closing a modal (#152)
+
 2.1.0 - August 25, 2015
 - Update third party dependencies and ESLint rules
 - Nunjucks 1.3.0 makes working with relative template includes a lot easier, use like this:
