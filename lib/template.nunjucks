@@ -169,11 +169,12 @@
             <p>{{ baseUri }}</p>
 
             {% for chapter in documentation %}
-              <h3 id="{{ chapter.uniqueId }}"><a href="#{{ chapter.uniqueId }}">{{ chapter.title }}</a></h3>
+              <h2 id="{{ chapter.uniqueId }}"><a href="#{{ chapter.uniqueId }}">{{ chapter.title }}</a></h2>
               {% markdown %}{{ chapter.content }}{% endmarkdown %}
             {% endfor %}
           </div>
 
+          <h2 id="Resources"><a href="#Resources">Resources</a></h2>
           {% for resource in resources %}
             <div class="panel panel-default">
               <div class="panel-heading">
