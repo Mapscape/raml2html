@@ -199,6 +199,10 @@
         <div class="col-md-3">
           <div id="sidebar" class="hidden-print affix" role="complementary">
             <ul class="nav nav-pills nav-stacked">
+              {% for chapter in documentation %}
+                <li><a href="#{{ chapter.uniqueId}}">{{ chapter.title }}</a></li>
+              {% endfor %}
+
               {% for resource in resources %}
                 <li><a href="#{{ resource.uniqueId}}">{% if resource.displayName %}{{ resource.displayName}}{% else %}{{ resource.relativeUri }}{% endif %}</a></li>
               {% endfor %}
