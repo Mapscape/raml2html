@@ -22,6 +22,12 @@ raml2html example.raml > example.html
 raml2html -t examples/custom-template-test/template.nunjucks -i example.raml -o example.html
 ```
 
+### As a Docker container
+```
+docker build -t raml2html .
+docker run -v `pwd`:/doc raml2html /doc/spec.raml > spec.html
+```
+
 ### As a library
 
 #### Using the default templates or your own Nunjucks templates
@@ -41,7 +47,7 @@ raml2html.render(source, configWithDefaultTemplates).then(function(result) {
 #### Using your own processing function, for when you want to use another template language
 ```
 /**
- * config should be an object with at least an `processRamlObj` property which is a function that receives the raw RAML 
+ * config should be an object with at least an `processRamlObj` property which is a function that receives the raw RAML
  * object and must return a promise with the result. You can do whatever you want in this function.
  *
  * You can also supply a postProcessHtml function that can for example minify the generated HTML.
@@ -59,9 +65,9 @@ Please note that if you want to use a different template language, you're probab
 [raml2obj](https://github.com/raml2html/raml2obj).
 
 ### Gulp
-You can use the [latest raml2html directly from Gulp](https://gist.github.com/iki/784ddd5ab33c1e1b726b), or use the third party 
+You can use the [latest raml2html directly from Gulp](https://gist.github.com/iki/784ddd5ab33c1e1b726b), or use the third party
 [gulp-raml2html plugin](https://www.npmjs.org/package/gulp-raml2html) (which uses an outdated version of raml2html).
- 
+
 ### Grunt
 There's a third party Grunt plugin at https://www.npmjs.org/package/grunt-raml2html.
 
@@ -80,7 +86,7 @@ raml2html is an open source project and your contribution is very much appreciat
 
 1. Check for open issues or open a fresh issue to start a discussion around a feature idea or a bug.
 2. Fork the repository on Github and make your changes on the **develop** branch (or branch off of it).  
-   Please retain the [code style](https://github.com/airbnb/javascript) that is used in the project and `npm run lint` before committing. 
+   Please retain the [code style](https://github.com/airbnb/javascript) that is used in the project and `npm run lint` before committing.
 3. Add an example of the new feature to example.raml (if applicable)
 4. Send a pull request (with the **develop** branch as the target).
 
