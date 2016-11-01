@@ -25,7 +25,7 @@ raml2html -t examples/custom-template-test/template.nunjucks -i example.raml -o 
 ### As a Docker container
 ```
 docker build -t raml2html .
-docker run -v `pwd`:/doc raml2html /doc/spec.raml > spec.html
+docker run --rm -v `pwd`:/doc raml2html /doc/spec.raml > spec.html
 ```
 
 ### As a library
