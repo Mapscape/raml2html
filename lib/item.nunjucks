@@ -27,7 +27,7 @@
     )
   </em>
 
-  {% markdown %}{{ item.description }}{% endmarkdown %}
+  {% markdown %}{{ item.description | includeCode }}{% endmarkdown %}
 
   {% if item.schema %}
     <p><strong>Schema</strong>:</p>

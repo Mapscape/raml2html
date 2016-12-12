@@ -21,7 +21,7 @@
         {% if resource.parentUrl %}
           {% if resource.description %}
             <div class="resource-description">
-              {% markdown %}{{ resource.description }}{% endmarkdown %}
+              {% markdown %}{{ resource.description | includeCode }}{% endmarkdown %}
             </div>
           {% endif %}
         {% endif %}
@@ -34,7 +34,7 @@
                 {% if method.displayName %}
                     <h4>{{ method.displayName }}</h4>
                 {% endif %}
-                {% markdown %}{{ method.description}}{% endmarkdown %}
+                {% markdown %}{{ method.description | includeCode }}{% endmarkdown %}
               </div>
               <div class="clearfix"></div>
             </div>
@@ -61,7 +61,7 @@
             <div class="modal-body">
               {% if method.description %}
                 <div class="alert alert-info">
-                  {% markdown %}{{ method.description}}{% endmarkdown %}
+                  {% markdown %}{{ method.description | includeCode }}{% endmarkdown %}
                 </div>
               {% endif %}
 
@@ -165,7 +165,7 @@
                   <div class="tab-pane" id="{{ resource.uniqueId }}_{{ method.method }}_response">
                     {% for key, response in method.responses %}
                       <h2>HTTP status code <a href="http://httpstatus.es/{{ key }}" target="_blank">{{ key }}</a></h2>
-                      {% markdown %}{{ response.description}}{% endmarkdown %}
+                      {% markdown %}{{ response.description | includeCode }}{% endmarkdown %}
 
                       {% if response.headers %}
                         <h3>Headers</h3>
@@ -202,7 +202,7 @@
                     Secured by {{ securedBy }}
                     {% set securityScheme = securitySchemeWithName(securedBy) %}
                     {% if securityScheme.description %}
-                      {% markdown %}{{ securityScheme.description }}{% endmarkdown %}
+                      {% markdown %}{{ securityScheme.description | includeCode }}{% endmarkdown %}
                     {% endif %}
 
                     {% if securityScheme.describedBy.headers %}
@@ -225,7 +225,7 @@
 
                     {% for key, response in securityScheme.describedBy.responses %}
                       <h2>HTTP status code <a href="http://httpstatus.es/{{ key }}" target="_blank">{{ key }}</a></h2>
-                      {% markdown %}{{ response.description}}{% endmarkdown %}
+                      {% markdown %}{{ response.description | includeCode }}{% endmarkdown %}
 
                       {% if response.headers %}
                         <h3>Headers</h3>

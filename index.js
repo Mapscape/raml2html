@@ -25,7 +25,7 @@ function render(source, config) {
 
     if (config.processRamlObj) {
       ramlObj = ramlJsonSchemaExpander.expandJsonSchemas(ramlObj);
-      return config.processRamlObj(ramlObj).then(function(html) {
+      return config.processRamlObj(ramlObj, source).then(function(html) {
         if (config.postProcessHtml) {
           return config.postProcessHtml(html);
         }
@@ -53,10 +53,12 @@ function getDefaultConfig(mainTemplate, templatesPath) {
   }
 
   return {
-    processRamlObj: function(ramlObj) {
+    processRamlObj: function(ramlObj, source) {
       var nunjucks = require('nunjucks');
       var markdown = require('nunjucks-markdown');
       var marked = require('marked');
+      var fs = require('fs');
+
       var renderer = new marked.Renderer();
       renderer.table = function(thead, tbody) {
         // Render Bootstrap style tables
@@ -68,6 +70,20 @@ function getDefaultConfig(mainTemplate, templatesPath) {
       markdown.register(env, function(md) {
         return marked(md, {renderer: renderer});
       });
+
+      // Nunjucks filter to support loading code fragments from
+      // external files
+      env.addFilter('includeCode', function(sourcePath, value) {
+        try {
+            var result = value || '';
+            return result.replace(/#includeCode:(.+)/g, function(match, file) {
+                return '```\n' + fs.readFileSync(path.join(sourcePath, file)) + '\n```';
+            });
+        } catch (e) {
+            console.error('Error processing markdown for %s: %s', value, e);
+            return value;
+        }
+      }.bind(null, path.dirname(source)));
 
       // Add extra function for finding a security scheme by name
       ramlObj.securitySchemeWithName = function(name) {
